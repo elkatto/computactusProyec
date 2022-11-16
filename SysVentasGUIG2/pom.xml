@@ -2,13 +2,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>pe.edu.upeu.app</groupId>
-    <artifactId>SysVentasGUIG2</artifactId>
+    <artifactId>SysVentasGUIG1</artifactId>
     <version>1.0-SNAPSHOT</version>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
-        <exec.mainClass>pe.edu.upeu.app.SysVentasGUIG2</exec.mainClass>
+        <exec.mainClass>pe.edu.upeu.app.SysVentasGUIG1</exec.mainClass>
     </properties>
     
     <dependencies>
@@ -23,8 +23,26 @@
             <artifactId>lombok</artifactId>
             <version>1.18.24</version>
             <scope>provided</scope>
-        </dependency>        
+        </dependency> 
+        <dependency>
+            <groupId>com.github.davidmp</groupId>
+            <artifactId>SysSwingDmp</artifactId>
+            <version>v1.8</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.30</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.10</version>
+        </dependency>       
     </dependencies>
+  
     
     <repositories>
         <repository>
@@ -65,14 +83,13 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>pe.edu.upeu.app.SysVentasGUIG2</mainClass>
+                            <mainClass>pe.edu.upeu.app.SysVentasGUIG1</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
             </plugin>            
             
         </plugins>
-    </build>    
-    
-    
+    </build>
+    <name>SysVentasGUIG1</name>
 </project>

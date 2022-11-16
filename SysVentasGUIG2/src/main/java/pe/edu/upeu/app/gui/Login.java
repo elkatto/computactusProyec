@@ -79,7 +79,12 @@ public class Login extends javax.swing.JFrame {
 
         jLabel3.setText("Password");
 
-        jPasswordField1.setText("jPasswordField1");
+        jPasswordField1.setText("2022");
+        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPasswordField1ActionPerformed(evt);
+            }
+        });
 
         myButton1.setText("Ingresar");
         myButton1.setColor(new java.awt.Color(255, 102, 102));
@@ -177,6 +182,10 @@ public class Login extends javax.swing.JFrame {
         gm.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_myButton1ActionPerformed
+
+    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPasswordField1ActionPerformed
 
     /**
      * @param args the command line arguments

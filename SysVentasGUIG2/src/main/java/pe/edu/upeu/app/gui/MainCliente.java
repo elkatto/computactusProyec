@@ -4,19 +4,18 @@
  */
 package pe.edu.upeu.app.gui;
 
-import java.awt.Dimension;
 import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.List;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
+import pe.com.syscenterlife.formvalid.Validator;
+import pe.com.syscenterlife.formvalid.ValidatorItem;
 import pe.edu.upeu.app.dao.ClienteDAO;
 import pe.edu.upeu.app.dao.ClienteDaoI;
 import pe.edu.upeu.app.modelo.ClienteTO;
@@ -300,7 +299,7 @@ public class MainCliente extends javax.swing.JPanel {
                         .addGap(0, 11, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addGap(24, 24, 24)
                 .addComponent(imagen22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -321,9 +320,9 @@ public class MainCliente extends javax.swing.JPanel {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(cbxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(41, 41, 41)
+                .addGap(124, 124, 124)
                 .addComponent(imagen22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 204));
@@ -356,7 +355,7 @@ public class MainCliente extends javax.swing.JPanel {
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 604, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -376,7 +375,9 @@ public class MainCliente extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -396,85 +397,14 @@ public class MainCliente extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-        cDao = new ClienteDAO();
-        ClienteTO to = new ClienteTO();
-        to.setDniruc(txtDni.getText());
-        to.setNombresrs(txtNombres.getText());
-        to.setTipo(cbxTipo.getSelectedItem().toString());
-        int fila = jTable1.getSelectedRow();
-        if (fila != -1) {
-            try {
-                int resultado = cDao.update(to);
-                if (resultado != 0) {
-                    modelo = (DefaultTableModel) jTable1.getModel();
-                    Object nuevo[] = {fila + 1, to.getDniruc(), to.getNombresrs(), to.getTipo()};
-                    modelo.removeRow(fila);
-                    modelo.insertRow(fila, nuevo);
-                    resetForm();
-                    JOptionPane.showMessageDialog(this, "Re registro");
-                }
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, e.getMessage());
-            }
-        } else {
-            try {
-                msg = new MsgBox();
-                if (msg.showConfirmCustom("Esta seguro de crear un nuevo cliente ?", "Mensaje de Confirmación", "") == 0) {
-                    if (cDao.create(to) != 0) {
-                        modelo = (DefaultTableModel) jTable1.getModel();
-                        Object nuevo[] = {modelo.getRowCount() + 1, to.getDniruc(), to.getNombresrs(), to.getTipo()};
-                        modelo.addRow(nuevo);
-                        resetForm();
-                        //JOptionPane.showMessageDialog(this, "Re registro");
-                    }
-                }
-
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, e.getMessage());
-            }
-        }
-    }//GEN-LAST:event_btnRegistrarActionPerformed
-
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        cDao = new ClienteDAO();
-        if (jTable1.getSelectedRowCount() > 0) {
-            try {
-                modelo = (DefaultTableModel) jTable1.getModel();
-                int rowx = jTable1.getSelectedRow();
-                Object valor = jTable1.getValueAt(rowx, 1);
-
-                msg = new MsgBox();
-                if (msg.showConfirmCustom("Esta seguro de eliminar este registrtro DNI: " + valor + "?", "Mensaje de Confirmación", "") == 0) {
-                    modelo.removeRow(rowx);
-                    cDao.delete(valor.toString());
-                    resetForm();
-                }
-
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, e.getMessage());
-            }
-            
-        } else {
-            JOptionPane.showMessageDialog(this, "Seleccione un item");
-        }
-    }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         paintForm();
     }//GEN-LAST:event_jTable1MouseClicked
-
-    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-        resetForm();
-        btnRegistrar.setText("REGISTRAR");
-        txtDni.setEditable(true);
-        jTable1.getSelectionModel().clearSelection();
-    }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void txtFiltroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroKeyTyped
         // TODO add your handling code here:        
@@ -498,6 +428,86 @@ public class MainCliente extends javax.swing.JPanel {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        cDao = new ClienteDAO();
+        if (jTable1.getSelectedRowCount() > 0) {
+            try {
+                modelo = (DefaultTableModel) jTable1.getModel();
+                int rowx = jTable1.getSelectedRow();
+                Object valor = jTable1.getValueAt(rowx, 1);
+
+                msg = new MsgBox();
+                if (msg.showConfirmCustom("Esta seguro de eliminar este registrtro DNI: " + valor + "?", "Mensaje de Confirmación", "") == 0) {
+                    modelo.removeRow(rowx);
+                    cDao.delete(valor.toString());
+                    resetForm();
+                }
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, e.getMessage());
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Seleccione un item");
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+        List<ValidatorItem> vals = new ArrayList<>();
+        vals.add(new ValidatorItem("required|number|min:8|max:8", txtDni, "DNI"));
+        vals.add(new ValidatorItem("required", txtNombres, "Nombre"));
+        vals.add(new ValidatorItem("required", cbxTipo, "Tipo"));
+
+        cDao = new ClienteDAO();
+        ClienteTO to = new ClienteTO();
+        to.setDniruc(txtDni.getText());
+        to.setNombresrs(txtNombres.getText());
+        to.setTipo(cbxTipo.getSelectedItem()==null?"":cbxTipo.getSelectedItem().toString());
+        int fila = jTable1.getSelectedRow();
+        if (fila != -1) {
+            try {
+                int resultado = cDao.update(to);
+                if (resultado != 0) {
+                    modelo = (DefaultTableModel) jTable1.getModel();
+                    Object nuevo[] = {fila + 1, to.getDniruc(), to.getNombresrs(), to.getTipo()};
+                    modelo.removeRow(fila);
+                    modelo.insertRow(fila, nuevo);
+                    resetForm();
+                    JOptionPane.showMessageDialog(this, "Re registro");
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, e.getMessage());
+            }
+        } else {
+            try {
+                Validator validator = new Validator(vals);
+                if(validator.isPasses()){
+
+                    msg = new MsgBox();
+                    if (msg.showConfirmCustom("Esta seguro de crear un nuevo cliente ?", "Mensaje de Confirmación", "") == 0) {
+                        if (cDao.create(to) != 0) {
+                            modelo = (DefaultTableModel) jTable1.getModel();
+                            Object nuevo[] = {modelo.getRowCount() + 1, to.getDniruc(), to.getNombresrs(), to.getTipo()};
+                            modelo.addRow(nuevo);
+                            resetForm();
+                            //JOptionPane.showMessageDialog(this, "Re registro");
+                        }
+                    }
+                }
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, e.getMessage());
+            }
+        }
+    }//GEN-LAST:event_btnRegistrarActionPerformed
+
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        resetForm();
+        btnRegistrar.setText("REGISTRAR");
+        txtDni.setEditable(true);
+        jTable1.getSelectionModel().clearSelection();
+    }//GEN-LAST:event_btnNuevoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

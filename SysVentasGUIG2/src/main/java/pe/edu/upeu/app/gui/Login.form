@@ -136,8 +136,11 @@
             </Component>
             <Component class="javax.swing.JPasswordField" name="jPasswordField1">
               <Properties>
-                <Property name="text" type="java.lang.String" value="jPasswordField1"/>
+                <Property name="text" type="java.lang.String" value="2022"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jPasswordField1ActionPerformed"/>
+              </Events>
             </Component>
             <Component class="pe.edu.upeu.app.components.MyButton" name="myButton1">
               <Properties>
